@@ -1,21 +1,48 @@
 import { Component, inject } from '@angular/core';
-import { Auth, GoogleAuthProvider, signInWithPopup } from '@angular/fire/auth';
+import { Auth, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithPopup, updateProfile } from '@angular/fire/auth';
 import { Router } from '@angular/router';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-sign-up',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss'
 })
 export class SignUpComponent {
 
+  registerForm!: FormGroup;
+
   private readonly auth: Auth = inject(Auth);
   private readonly router: Router = inject(Router);
+  private readonly formBuilder: FormBuilder = inject(FormBuilder);
+
+  constructor() {
+    this.registerForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required,
+      Validators.minLength(8),
+      Validators.pattern('^(?=.*[A-Z])(?=.*[!@#$&*]).{8,}$')]]
+    });
+  }
+
 
   register() {
-
+    if (this.registerForm.valid) {
+      const { name, email, password } = this.registerForm.value;
+      createUserWithEmailAndPassword(this.auth, email, password)
+        .then(userCredential => {
+          return updateProfile(userCredential.user, { displayName: name });
+        })
+        .then(() => {
+          // this.router.navigate(['/some-success-route']);
+        })
+        .catch(error => {
+          console.error('Registration error:', error);
+        });
+    }
   }
 
   signInWithGoogle() {
@@ -23,12 +50,8 @@ export class SignUpComponent {
     signInWithPopup(this.auth, provider)
       .then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential?.accessToken;
-        const user = result.user;
       }).catch((error) => {
         const errorCode = error.code;
-        const errorMessage = error.message;
-        const email = error.email;
         const credential = GoogleAuthProvider.credentialFromError(error);
       });
   }

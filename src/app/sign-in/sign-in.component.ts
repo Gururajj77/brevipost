@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Auth, GoogleAuthProvider, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup } from '@angular/fire/auth';
-import { Form, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -30,7 +30,7 @@ export class SignInComponent {
 
 
   signIn() {
-    if (this.loginForm && this.loginForm.get('email') && this.loginForm.get('password')) {
+    if (this.loginForm.valid) {
       const email = this.loginForm.get('email')!.value;
       const password = this.loginForm.get('password')!.value;
       signInWithEmailAndPassword(this.auth, email, password)

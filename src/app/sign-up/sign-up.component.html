@@ -4,18 +4,57 @@
     <h2 class="heading">Create Account</h2>
     <p>Fill in the required details and all are mandatory</p>
   </div>
-  <div>
+  <form [formGroup]="registerForm" (ngSubmit)="register()">
     <div class="input-group">
-      <input type="text" placeholder="name" required />
+      <input formControlName="name" type="text" placeholder="name" required />
+      <div class="error-container">
+        @if (registerForm.controls['name'].errors?.['required'] &&
+        registerForm.controls['name'].touched) {
+        <p class="error-message">Name is required.</p>
+        }
+      </div>
     </div>
     <div class="input-group">
-      <input type="email" placeholder="Email ID" required />
+      <input
+        formControlName="email"
+        type="email"
+        placeholder="Email ID"
+        required
+      />
+      <div class="error-container">
+        @if (registerForm.controls['email'].errors?.['required'] &&
+        registerForm.controls['email'].touched) {
+        <p class="error-message">Email is required.</p>
+        } @if (registerForm.controls['email'].errors?.['email'] &&
+        registerForm.controls['email'].touched) {
+        <p class="error-message">Enter a valid email.</p>
+        }
+      </div>
     </div>
     <div class="input-group">
-      <input type="password" placeholder="Password" required />
+      <input
+        formControlName="password"
+        type="password"
+        placeholder="Password"
+        required
+      />
+      <div class="error-container">
+        @if ( registerForm.controls['password'].errors?.['required'] &&
+        registerForm.controls['password'].touched ) {
+        <p class="error-message">Password is required.</p>
+        } @if (registerForm.controls['password'].errors?.['pattern'] &&
+        registerForm.controls['password'].touched) {
+        <p class="error-message">
+          Password should have a capital letter, a number and a special
+          character
+        </p>
+        }
+      </div>
     </div>
-    <button (click)="register()" type="submit">Sign Up</button>
-  </div>
+    <div>
+      <button [disabled]="!registerForm.valid" type="submit">Sign Up</button>
+    </div>
+  </form>
   <a href="#" (click)="signInWithGoogle()" class="google-sign-in"
     >Or log in with Google</a
   >

@@ -32,15 +32,17 @@
   align-items: center;
   flex-direction: column;
   .heading {
-    margin-bottom: 20px;
     font-weight: bold;
+  }
+  p {
+    padding: 0 20px;
+    text-align: center;
   }
 }
 
 .input-group {
   width: 100%;
   max-width: 300px;
-  margin-bottom: 20px;
 }
 
 input[type="email"],
@@ -54,14 +56,44 @@ input[type="text"] {
   box-sizing: border-box;
   border-radius: 4px;
 }
+
+.error-container {
+  height: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.error-message {
+  color: #ff0000;
+  text-align: center;
+  font-size: 0.8rem;
+}
+.error-message.ng-star-inserted {
+  visibility: visible;
+  height: auto;
+}
+
 button {
   background-color: $accent-color;
   color: white;
   padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
+  border: 0.5px solid $accent-color;
   cursor: pointer;
-  width: 100%;
+  width: 250px;
+  border-radius: 4px;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+button:disabled {
+  background-color: white;
+  color: $accent-color;
+  padding: 14px 20px;
+  border: 0.5px solid $accent-color;
+  cursor: not-allowed;
+  width: 250px;
   border-radius: 4px;
 }
 
@@ -78,12 +110,12 @@ button {
 
 .register-link {
   text-align: center;
-  margin-top: 20px;
 }
 
 .register-link a {
   color: #007bff;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .register-link a:hover {
@@ -93,5 +125,11 @@ button {
 @media (min-width: 768px) {
   .input-group {
     width: 400px;
+  }
+  button {
+    width: 300px;
+  }
+  button:disabled {
+    width: 300px;
   }
 }
