@@ -1,0 +1,127 @@
+@import "../../partials/variables";
+
+.container {
+  position: relative;
+  height: 100%;
+  background-color: #f5f5f5;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.back-arrow {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.heading {
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.input-group {
+  width: 100%;
+  max-width: 300px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+.error-message {
+  color: #ff0000;
+  text-align: center;
+  font-size: 0.8rem;
+  height: 20px;
+  margin-top: 5px;
+}
+
+button {
+  background-color: $accent-color;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 4px;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.help-text {
+  text-align: center;
+  padding: 12px;
+  color: #a0a0a0;
+}
+
+.help-text a {
+  color: #ed546b;
+  text-decoration: none;
+}
+
+.help-text a:hover {
+  text-decoration: underline;
+}
+
+.google-sign-in {
+  color: #757575;
+  font-size: 14px;
+  margin-top: 16px;
+  text-decoration: none;
+}
+
+.google-sign-in:hover {
+  text-decoration: underline;
+}
+
+.register-link {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.register-link a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
+}
+
+.logo {
+  font-size: 48px;
+  font-weight: bold;
+  color: transparent;
+  -webkit-text-stroke: 1px #ed546b;
+  background-image: repeating-linear-gradient(
+    45deg,
+    #ed546b,
+    #ed546b 5px,
+    transparent 5px,
+    transparent 10px
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+@media (min-width: 768px) {
+  .input-group {
+    width: 400px;
+  }
+}

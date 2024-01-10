@@ -1,0 +1,52 @@
+<section class="container">
+  <div class="back-arrow">&lt;</div>
+  <div class="logo">BREVIPOST</div>
+
+  <h2 class="heading">Log In</h2>
+  <p>
+    Type in your Email ID and Password for logging into you Brevipost account
+  </p>
+  <div [formGroup]="loginForm" (ngSubmit)="signIn()">
+    <div class="input-group">
+      <input
+        formControlName="email"
+        type="email"
+        placeholder="Email ID"
+        required
+      />
+    </div>
+    @if (loginForm.controls['email'].errors?.['required'] &&
+    loginForm.controls['email'].touched) {
+    <p class="error-message">Email is required.</p>
+    } @if (loginForm.controls['email'].errors?.['email'] &&
+    loginForm.controls['email'].touched) {
+    <p class="error-message">Enter a valid email.</p>
+    }
+    <div class="input-group">
+      <input
+        formControlName="password"
+        type="password"
+        placeholder="Password"
+        required
+      />
+    </div>
+    @if ( loginForm.controls['password'].errors?.['required'] &&
+    loginForm.controls['password'].touched ) {
+    <p class="error-message">Password is required.</p>
+    } @if (loginForm.controls['password'].errors?.['pattern'] &&
+    loginForm.controls['password'].touched) {
+    <p class="error-message">Password does not meet complexity requirements.</p>
+    }
+
+    <button type="submit">Log In</button>
+  </div>
+  <a href="#" (click)="signInWithGoogle()" class="google-sign-in"
+    >Or log in with Google</a
+  >
+  <div class="help-text">
+    <a href="#">Can't Sign In? Reset Password</a>
+  </div>
+  <div class="register-link">
+    <p>Don't have an account? <a (click)="signUpPage()">Create Account</a></p>
+  </div>
+</section>

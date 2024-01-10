@@ -94,8 +94,28 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "version": 2
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "brevi-post:build:production",
+              "serveTarget": "brevi-post:serve:production"
+            },
+            "development": {
+              "buildTarget": "brevi-post:build:development",
+              "serveTarget": "brevi-post:serve:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

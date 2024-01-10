@@ -1,0 +1,25 @@
+<section class="container">
+  <div class="logo">BREVIPOST</div>
+  <div class="text-box">
+    <h2 class="heading">Create Account</h2>
+    <p>Fill in the required details and all are mandatory</p>
+  </div>
+  <div>
+    <div class="input-group">
+      <input type="text" placeholder="name" required />
+    </div>
+    <div class="input-group">
+      <input type="email" placeholder="Email ID" required />
+    </div>
+    <div class="input-group">
+      <input type="password" placeholder="Password" required />
+    </div>
+    <button (click)="register()" type="submit">Sign Up</button>
+  </div>
+  <a href="#" (click)="signInWithGoogle()" class="google-sign-in"
+    >Or log in with Google</a
+  >
+  <div class="register-link">
+    <p>Already have an account? <a (click)="toLoginPage()">Log in</a></p>
+  </div>
+</section>

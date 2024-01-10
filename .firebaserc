@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "bervipost": {
+      "hosting": {
+        "brevi-post": [
+          "bervipost"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "bervipost"
+  }
+}
