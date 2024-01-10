@@ -98,9 +98,14 @@ button:disabled {
 }
 
 .google-sign-in {
+  background: none;
+  border: none;
   color: #757575;
+  cursor: pointer;
+  font-size: inherit;
+  font-family: inherit;
   font-size: 14px;
-  margin-top: 16px;
+  margin-top: 10px;
   text-decoration: none;
 }
 

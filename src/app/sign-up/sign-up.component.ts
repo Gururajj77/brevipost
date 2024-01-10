@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Auth, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithPopup, updateProfile } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-sign-up',
@@ -37,7 +37,7 @@ export class SignUpComponent {
           return updateProfile(userCredential.user, { displayName: name });
         })
         .then(() => {
-          // this.router.navigate(['/some-success-route']);
+          this.router.navigateByUrl('/feed');
         })
         .catch(error => {
           console.error('Registration error:', error);
@@ -50,12 +50,11 @@ export class SignUpComponent {
     signInWithPopup(this.auth, provider)
       .then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
+        this.router.navigateByUrl('/feed');
       }).catch((error) => {
-        const errorCode = error.code;
         const credential = GoogleAuthProvider.credentialFromError(error);
       });
   }
-
   toLoginPage() {
     this.router.navigateByUrl('sign-in')
   }

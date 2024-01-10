@@ -55,9 +55,11 @@
       <button [disabled]="!registerForm.valid" type="submit">Sign Up</button>
     </div>
   </form>
-  <a href="#" (click)="signInWithGoogle()" class="google-sign-in"
-    >Or log in with Google</a
-  >
+  <div class="help-text">
+    <button (click)="signInWithGoogle()" class="google-sign-in">
+      Or Login with Google
+    </button>
+  </div>
   <div class="register-link">
     <p>Already have an account? <a (click)="toLoginPage()">Log in</a></p>
   </div>

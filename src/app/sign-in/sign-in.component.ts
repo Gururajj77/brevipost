@@ -34,6 +34,9 @@ export class SignInComponent {
       const email = this.loginForm.get('email')!.value;
       const password = this.loginForm.get('password')!.value;
       signInWithEmailAndPassword(this.auth, email, password)
+        .then((result) => {
+          this.router.navigateByUrl('/feed');
+        })
         .catch((error) => {
           this.ERROR_CODE = error.code
           console.log(this.ERROR_CODE)
@@ -47,6 +50,7 @@ export class SignInComponent {
     signInWithPopup(this.auth, provider)
       .then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
+        this.router.navigateByUrl('/feed')
       }).catch((error) => {
         const credential = GoogleAuthProvider.credentialFromError(error);
       });
