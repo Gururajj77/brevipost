@@ -5,7 +5,7 @@
   <p class="main-text">
     Type in your Email ID and Password for logging into you Brevipost account
   </p>
-  <form [formGroup]="loginForm" (ngSubmit)="signIn()">
+  <form class="custom-form" [formGroup]="loginForm" (ngSubmit)="signIn()">
     <div class="input-group">
       <input
         formControlName="email"
@@ -14,13 +14,16 @@
         required
       />
     </div>
-    @if (loginForm.controls['email'].errors?.['required'] &&
-    loginForm.controls['email'].touched) {
-    <p class="error-message">Email is required.</p>
-    } @if (loginForm.controls['email'].errors?.['email'] &&
-    loginForm.controls['email'].touched) {
-    <p class="error-message">Enter a valid email.</p>
-    }
+    <div class="error-container">
+      @if (loginForm.controls['email'].errors?.['required'] &&
+      loginForm.controls['email'].touched) {
+      <p class="error-message">Email is required.</p>
+      } @if (loginForm.controls['email'].errors?.['email'] &&
+      loginForm.controls['email'].touched) {
+      <p class="error-message">Enter a valid email.</p>
+      }
+    </div>
+
     <div class="input-group">
       <input
         formControlName="password"
@@ -29,17 +32,23 @@
         required
       />
     </div>
-    @if ( loginForm.controls['password'].errors?.['required'] &&
-    loginForm.controls['password'].touched ) {
-    <p class="error-message">Password is required.</p>
-    } @if (loginForm.controls['password'].errors?.['pattern'] &&
-    loginForm.controls['password'].touched) {
-    <p class="error-message">Password does not meet complexity requirements.</p>
-    } @if (ERROR_CODE==="auth/invalid-credential") {
-    <p class="error-message">Invalid Login credentails.</p>
-    }
+    <div class="error-container">
+      @if ( loginForm.controls['password'].errors?.['required'] &&
+      loginForm.controls['password'].touched ) {
+      <p class="error-message">Password is required.</p>
+      } @if (loginForm.controls['password'].errors?.['pattern'] &&
+      loginForm.controls['password'].touched) {
+      <p class="error-message">
+        Password should have a capital letter, a number and a special character
+      </p>
+      } @if (ERROR_CODE==="auth/invalid-credential") {
+      <p class="error-message">Invalid Login credentails.</p>
+      }
+    </div>
 
-    <button type="submit">Log In</button>
+    <div>
+      <button [disabled]="!loginForm.valid" type="submit">Log In</button>
+    </div>
   </form>
 
   <div class="help-text">
