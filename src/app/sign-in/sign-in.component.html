@@ -1,9 +1,8 @@
 <section class="container">
-  <div class="back-arrow">&lt;</div>
   <div class="logo">BREVIPOST</div>
 
   <h2 class="heading">Log In</h2>
-  <p>
+  <p class="main-text">
     Type in your Email ID and Password for logging into you Brevipost account
   </p>
   <form [formGroup]="loginForm" (ngSubmit)="signIn()">
@@ -36,6 +35,8 @@
     } @if (loginForm.controls['password'].errors?.['pattern'] &&
     loginForm.controls['password'].touched) {
     <p class="error-message">Password does not meet complexity requirements.</p>
+    } @if (ERROR_CODE==="auth/invalid-credential") {
+    <p class="error-message">Invalid Login credentails.</p>
     }
 
     <button type="submit">Log In</button>

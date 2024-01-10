@@ -4,17 +4,15 @@
   position: relative;
   height: 100%;
   background-color: #f5f5f5;
-  padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.back-arrow {
-  position: absolute;
-  top: 20px;
-  left: 20px;
+.main-text {
+  padding: 10px;
+  text-align: center;
 }
 
 .heading {
@@ -46,7 +44,6 @@ input[type="password"] {
   text-align: center;
   font-size: 0.8rem;
   height: 20px;
-  margin-top: 5px;
 }
 
 button {
