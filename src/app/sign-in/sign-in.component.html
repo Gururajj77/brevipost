@@ -6,7 +6,7 @@
   <p>
     Type in your Email ID and Password for logging into you Brevipost account
   </p>
-  <div [formGroup]="loginForm" (ngSubmit)="signIn()">
+  <form [formGroup]="loginForm" (ngSubmit)="signIn()">
     <div class="input-group">
       <input
         formControlName="email"
@@ -39,12 +39,18 @@
     }
 
     <button type="submit">Log In</button>
-  </div>
-  <a href="#" (click)="signInWithGoogle()" class="google-sign-in"
-    >Or log in with Google</a
-  >
+  </form>
+
   <div class="help-text">
-    <a href="#">Can't Sign In? Reset Password</a>
+    <button (click)="signInWithGoogle()" class="google-sign-in">
+      Or Login with Google
+    </button>
+  </div>
+
+  <div class="help-text">
+    <button (click)="resetPassword()" class="reset-password-button">
+      Can't Sign In? Reset Password
+    </button>
   </div>
   <div class="register-link">
     <p>Don't have an account? <a (click)="signUpPage()">Create Account</a></p>

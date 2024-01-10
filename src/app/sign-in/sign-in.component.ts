@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { Auth, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from '@angular/fire/auth';
+import { Auth, GoogleAuthProvider, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup } from '@angular/fire/auth';
 import { Form, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -30,16 +30,20 @@ export class SignInComponent {
 
 
   signIn() {
-    let [_email, _password] = ["gururajtakeshi@gmail.com", "F0rever$"]
-    signInWithEmailAndPassword(this.auth, _email, _password)
-      .then(userCredential => {
-        const user = userCredential.user;
-        console.log(userCredential)
-      })
-      .catch(error => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-      });
+    if (this.loginForm && this.loginForm.get('email') && this.loginForm.get('password')) {
+      const email = this.loginForm.get('email')!.value;
+      const password = this.loginForm.get('password')!.value;
+      signInWithEmailAndPassword(this.auth, email, password)
+        .then(userCredential => {
+          const user = userCredential.user;
+          console.log(userCredential)
+        })
+        .catch(error => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+        });
+    }
+
   }
 
   signInWithGoogle() {
@@ -50,14 +54,24 @@ export class SignInComponent {
         const token = credential?.accessToken;
         const user = result.user;
       }).catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        const email = error.email;
         const credential = GoogleAuthProvider.credentialFromError(error);
       });
   }
 
   signUpPage() {
     this.router.navigateByUrl('register-user');
+  }
+
+  resetPassword() {
+    if (this.loginForm && this.loginForm.get('email') && this.loginForm.get('password')) {
+      const email = this.loginForm.get('email')!.value;
+      sendPasswordResetEmail(this.auth, email)
+        .then(() => {
+          console.log('Password reset email sent');
+        })
+        .catch((error) => {
+          console.error('Error sending password reset email: ', error);
+        });
+    }
   }
 }

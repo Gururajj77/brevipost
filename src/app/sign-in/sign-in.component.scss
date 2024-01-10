@@ -79,8 +79,28 @@ button:hover {
   text-decoration: underline;
 }
 
+.reset-password-button {
+  background: none;
+  border: none;
+  color: #ed546b;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: inherit;
+  font-family: inherit;
+  padding: 0;
+}
+
+.reset-password-button:hover {
+  text-decoration: underline;
+}
+
 .google-sign-in {
+  background: none;
+  border: none;
   color: #757575;
+  cursor: pointer;
+  font-size: inherit;
+  font-family: inherit;
   font-size: 14px;
   margin-top: 16px;
   text-decoration: none;
