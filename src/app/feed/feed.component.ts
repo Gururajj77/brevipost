@@ -13,10 +13,7 @@ import { SnackbarService } from '../shared/components/snackbar/snackbar.service'
 export class FeedComponent {
 
   private readonly auth: Auth = inject(Auth);
-  private readonly snackbarService: SnackbarService = inject(SnackbarService)
 
-  ngOnInit() {
-    this.snackbarService.show('Signed In Successfully', 5000);
-  }
+
 
 }

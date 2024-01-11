@@ -46,7 +46,7 @@ export class SignInComponent {
       signInWithEmailAndPassword(this.auth, email, password)
         .then((result) => {
           this.snackbarService.show('Signed In Successfully', 5000);
-          this.router.navigateByUrl('/feed');
+          this.router.navigateByUrl('app/feed');
         })
         .catch((error) => {
           this.ERROR_CODE = error.code
@@ -59,7 +59,7 @@ export class SignInComponent {
     this.auth.onAuthStateChanged((user) => {
       this.isLoading = false;
       if (user) {
-        this.router.navigateByUrl('/feed');
+        this.router.navigateByUrl('app/feed');
       } else {
         this.auth.signOut();
       }

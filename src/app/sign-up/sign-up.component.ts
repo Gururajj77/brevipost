@@ -55,7 +55,7 @@ export class SignUpComponent {
           return updateProfile(userCredential.user, { displayName: name });
         })
         .then(() => {
-          this.router.navigateByUrl('/feed');
+          this.router.navigateByUrl('app/feed');
         })
         .catch(error => {
           console.error('Registration error:', error);
@@ -82,7 +82,7 @@ export class SignUpComponent {
           .catch((error) => {
             this.snackbarService.show('Error adding user details to Firestore');
           });
-        this.router.navigateByUrl('/feed')
+        this.router.navigateByUrl('app/feed')
       }).catch((error) => {
         this.snackbarService.show('Error in Registering new User');
       });

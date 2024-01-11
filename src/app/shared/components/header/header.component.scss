@@ -1,0 +1,67 @@
+// header.component.scss
+@import "../../../../partials/variables";
+
+.header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #fff;
+  padding: 0 2rem;
+}
+.header-nav {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.header-nav-item {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  color: $inactive-color;
+  font-weight: bold;
+  &.active {
+    color: $accent-color;
+  }
+}
+
+.logo {
+  font-size: 48px;
+  font-weight: bold;
+  color: transparent;
+  font-family: "Luckiest";
+  -webkit-text-stroke: 1px #ed546b;
+  background-image: repeating-linear-gradient(
+    45deg,
+    #ed546b,
+    #ed546b 2px,
+    transparent 2px,
+    transparent 10px
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  &:hover {
+    cursor: pointer;
+  }
+}
+@media (max-width: 768px) {
+  .header {
+    justify-content: space-between;
+    padding: 1rem;
+  }
+  .header-nav {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .header-nav-item {
+    padding: 0.5rem;
+  }
+
+  .logo {
+    display: none;
+  }
+}
