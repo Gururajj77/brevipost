@@ -1,6 +1,6 @@
 <section class="feed-container">
-  <CustomButton [buttonName]="'Write'" (click)="openWrite()" />
-  <post-dialog [isDialogOpen]="openDialogBox" (closeWrite)="openWrite()" />
+  <CustomButton [buttonName]="'Write'" (click)="toggleWrite()" />
+  <post-dialog [isDialogOpen]="openDialogBox" (closeWrite)="toggleWrite()" />
   <h2 class="feed-title">News Feed</h2>
   <div class="feed-list">
     <div class="feed-item">

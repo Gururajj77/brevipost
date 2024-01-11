@@ -15,7 +15,7 @@ export class FeedComponent {
 
   private readonly auth: Auth = inject(Auth);
   openDialogBox: boolean = false
-  openWrite() {
+  toggleWrite() {
     this.openDialogBox = !this.openDialogBox;
   }
 
