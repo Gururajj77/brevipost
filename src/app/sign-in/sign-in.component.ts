@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../shared/services/auth/auth.service';
 import { LoaderComponent } from '../shared/components/loader/loader.component';
+import { SnackbarService } from '../shared/components/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -23,6 +24,8 @@ export class SignInComponent {
   private readonly formBuilder: FormBuilder = inject(FormBuilder);
 
   private readonly authService: AuthService = inject(AuthService);
+  private readonly snackbarService: SnackbarService = inject(SnackbarService);
+
 
 
   ERROR_CODE: string = "";
@@ -42,6 +45,7 @@ export class SignInComponent {
       const { email, password } = this.loginForm.value;
       signInWithEmailAndPassword(this.auth, email, password)
         .then((result) => {
+          this.snackbarService.show('Signed In Successfully', 5000);
           this.router.navigateByUrl('/feed');
         })
         .catch((error) => {
@@ -75,10 +79,10 @@ export class SignInComponent {
       const email = this.loginForm.get('email')!.value;
       sendPasswordResetEmail(this.auth, email)
         .then(() => {
-          console.log('Password reset email sent');
+          this.snackbarService.show('Password reset email sent', 5000);
         })
         .catch((error) => {
-          console.error('Error sending password reset email: ', error);
+          this.snackbarService.show('Error sending password reset email', 2500);
         });
     }
   }

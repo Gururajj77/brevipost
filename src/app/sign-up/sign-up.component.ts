@@ -1,10 +1,10 @@
 import { Component, inject } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword, updateProfile } from '@angular/fire/auth';
+import { Auth, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithPopup, updateProfile } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthService } from '../shared/services/auth/auth.service';
 import { CustomButtonComponent } from '../shared/components/custom-button/custom-button.component';
 import { FirestoreService } from '../shared/services/firestore/firestore.service';
+import { SnackbarService } from '../shared/components/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -20,8 +20,8 @@ export class SignUpComponent {
   private readonly auth: Auth = inject(Auth);
   private readonly router: Router = inject(Router);
   private readonly formBuilder: FormBuilder = inject(FormBuilder);
+  private readonly snackbarService: SnackbarService = inject(SnackbarService);
 
-  private readonly authService: AuthService = inject(AuthService);
   private firestoreService: FirestoreService = inject(FirestoreService);
   constructor() {
     this.registerForm = this.formBuilder.group({
@@ -47,10 +47,10 @@ export class SignUpComponent {
           };
           this.firestoreService.addUserDetails(uid, userDetails)
             .then(() => {
-              console.log('User details added to Firestore');
+              this.snackbarService.show('User details added to Firestore');
             })
             .catch((error) => {
-              console.error('Error adding user details to Firestore', error);
+              this.snackbarService.show('Error adding user details to Firestore');
             });
           return updateProfile(userCredential.user, { displayName: name });
         })
@@ -64,11 +64,32 @@ export class SignUpComponent {
   }
 
   signInWithGoogle() {
-    this.authService.signInWithGoogle();
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(this.auth, provider)
+      .then((result) => {
+        const uid = result.user.uid;
+        const email = result.user.email;
+        const name = result.user.displayName;
+        const userDetails = {
+          uid,
+          name,
+          email,
+        };
+        this.firestoreService.addUserDetails(uid, userDetails)
+          .then(() => {
+            this.snackbarService.show('User details added to Firestore');
+          })
+          .catch((error) => {
+            this.snackbarService.show('Error adding user details to Firestore');
+          });
+        this.router.navigateByUrl('/feed')
+      }).catch((error) => {
+        this.snackbarService.show('Error in Registering new User');
+      });
   }
 
   toLoginPage() {
-    this.router.navigateByUrl('sign-in')
+    this.router.navigateByUrl('sign-in');
   }
 
 }

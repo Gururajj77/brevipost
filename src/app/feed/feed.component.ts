@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
 import { CustomButtonComponent } from '../shared/components/custom-button/custom-button.component';
+import { SnackbarService } from '../shared/components/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-feed',
@@ -11,10 +12,11 @@ import { CustomButtonComponent } from '../shared/components/custom-button/custom
 })
 export class FeedComponent {
 
-  auth: Auth = inject(Auth);
+  private readonly auth: Auth = inject(Auth);
+  private readonly snackbarService: SnackbarService = inject(SnackbarService)
 
   ngOnInit() {
-    console.log(this.auth.currentUser)
+    this.snackbarService.show('Signed In Successfully', 5000);
   }
 
 }

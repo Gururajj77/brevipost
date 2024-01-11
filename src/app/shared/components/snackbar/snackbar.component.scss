@@ -1,0 +1,15 @@
+@import "../../../../partials/variables";
+
+.snackbar {
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  color: black;
+  border-left: 5px solid $accent-color;
+  transform: translateX(-50%);
+  background-color: #fff;
+  padding: 16px;
+  text-align: center;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.1);
+}
