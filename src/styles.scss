@@ -8,6 +8,14 @@
   font-weight: normal;
   font-style: normal;
 }
+
+@font-face {
+  font-family: "Luckiest";
+  src: local("Luckiest"),
+    url("./assets/fonts/LuckiestGuy-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
 * {
   font-family: "Poppins", sans-serif;
   color: $font-color;

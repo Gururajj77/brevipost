@@ -1,4 +1,5 @@
 @import "../../partials/variables";
+@import "../../partials/buttons";
 
 .container {
   position: relative;
@@ -60,28 +61,14 @@ input[type="password"] {
   height: auto;
 }
 
-button {
-  background-color: $accent-color;
-  color: white;
-  padding: 14px 20px;
-  border: 0.5px solid $accent-color;
-  cursor: pointer;
-  width: 250px;
-  border-radius: 4px;
+.button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-button:disabled {
-  background-color: white;
-  color: $accent-color;
-  padding: 14px 20px;
-  border: 0.5px solid $accent-color;
-  cursor: not-allowed;
-  width: 250px;
-  border-radius: 4px;
-}
-
-button:hover {
-  opacity: 0.8;
+.custom-button {
+  @include custom-button($accent-color);
 }
 
 .help-text {
@@ -90,7 +77,7 @@ button:hover {
 }
 
 .help-text a {
-  color: #ed546b;
+  color: $accent-color;
   text-decoration: none;
 }
 
@@ -101,7 +88,7 @@ button:hover {
 .reset-password-button {
   background: none;
   border: none;
-  color: #ed546b;
+  color: $accent-color;
   text-decoration: none;
   cursor: pointer;
   font-size: inherit;
@@ -147,12 +134,13 @@ button:hover {
   font-size: 48px;
   font-weight: bold;
   color: transparent;
-  -webkit-text-stroke: 1px #ed546b;
+  font-family: "Luckiest";
+  -webkit-text-stroke: 1px $accent-color;
   background-image: repeating-linear-gradient(
     45deg,
-    #ed546b,
-    #ed546b 5px,
-    transparent 5px,
+    $accent-color,
+    $accent-color 2px,
+    transparent 2px,
     transparent 10px
   );
   -webkit-background-clip: text;
@@ -163,10 +151,10 @@ button:hover {
   .input-group {
     width: 400px;
   }
-  button {
+  .custom-button {
     width: 300px;
   }
-  button:disabled {
+  .custom-button:disabled {
     width: 300px;
   }
 }

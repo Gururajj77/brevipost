@@ -1,3 +1,6 @@
+@if (isLoading) {
+<Loader />
+}@else {
 <section class="container">
   <div class="logo">BREVIPOST</div>
 
@@ -46,8 +49,10 @@
       }
     </div>
 
-    <div>
-      <button [disabled]="!loginForm.valid" type="submit">Log In</button>
+    <div class="button-container">
+      <button class="custom-button" [disabled]="!loginForm.valid" type="submit">
+        Log In
+      </button>
     </div>
   </form>
 
@@ -66,3 +71,4 @@
     <p>Don't have an account? <a (click)="signUpPage()">Create Account</a></p>
   </div>
 </section>
+}

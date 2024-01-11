@@ -1,23 +1,30 @@
 import { Component, inject } from '@angular/core';
-import { Auth, GoogleAuthProvider, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup } from '@angular/fire/auth';
+import { Auth, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup } from '@angular/fire/auth';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../shared/services/auth/auth.service';
+import { LoaderComponent } from '../shared/components/loader/loader.component';
 
 @Component({
   selector: 'app-sign-in',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, LoaderComponent],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.scss'
 })
 export class SignInComponent {
 
   loginForm!: FormGroup;
+  isLoading: boolean = true;
 
   private readonly auth: Auth = inject(Auth);
   private readonly router: Router = inject(Router);
   private readonly formBuilder: FormBuilder = inject(FormBuilder);
+
+  private readonly authService: AuthService = inject(AuthService);
+
+
   ERROR_CODE: string = "";
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -26,13 +33,13 @@ export class SignInComponent {
       Validators.minLength(8),
       Validators.pattern('^(?=.*[A-Z])(?=.*[!@#$&*]).{8,}$')]]
     });
+    this.persistLoggedInUser();
   }
 
 
   signIn() {
     if (this.loginForm.valid) {
-      const email = this.loginForm.get('email')!.value;
-      const password = this.loginForm.get('password')!.value;
+      const { email, password } = this.loginForm.value;
       signInWithEmailAndPassword(this.auth, email, password)
         .then((result) => {
           this.router.navigateByUrl('/feed');
@@ -42,22 +49,25 @@ export class SignInComponent {
           console.log(this.ERROR_CODE)
         });
     }
+  }
 
+  persistLoggedInUser() {
+    this.auth.onAuthStateChanged((user) => {
+      this.isLoading = false;
+      if (user) {
+        this.router.navigateByUrl('/feed');
+      } else {
+        this.auth.signOut();
+      }
+    });
   }
 
   signInWithGoogle() {
-    const provider = new GoogleAuthProvider();
-    signInWithPopup(this.auth, provider)
-      .then((result) => {
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        this.router.navigateByUrl('/feed')
-      }).catch((error) => {
-        const credential = GoogleAuthProvider.credentialFromError(error);
-      });
+    this.authService.signInWithGoogle();
   }
 
   signUpPage() {
-    this.router.navigateByUrl('register-user');
+    this.router.navigateByUrl('/register-user');
   }
 
   resetPassword() {

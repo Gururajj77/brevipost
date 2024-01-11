@@ -51,13 +51,19 @@
         }
       </div>
     </div>
-    <div>
-      <button [disabled]="!registerForm.valid" type="submit">Sign Up</button>
+    <div class="button-container">
+      <button
+        class="custom-button"
+        [disabled]="!registerForm.valid"
+        type="submit"
+      >
+        Sign Up
+      </button>
     </div>
   </form>
   <div class="help-text">
     <button (click)="signInWithGoogle()" class="google-sign-in">
-      Or Login with Google
+      Or Sign-Up with Google
     </button>
   </div>
   <div class="register-link">

@@ -1,0 +1,31 @@
+// partials/_buttons.scss
+
+@mixin custom-button($accent-color) {
+  background-color: $accent-color;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  width: 250px;
+  font-size: 1rem;
+  font-weight: 600;
+  outline: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+  display: inline-block;
+
+  &:hover {
+    background-color: darken($accent-color, 10%);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+    opacity: 1;
+  }
+
+  &:disabled {
+    background-color: #fff;
+    color: $accent-color;
+    box-shadow: none;
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}

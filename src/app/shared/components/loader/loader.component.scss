@@ -1,0 +1,50 @@
+.full-page-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes ellipsis {
+  0%,
+  100% {
+    content: "";
+  }
+  25% {
+    content: ".";
+  }
+  50% {
+    content: "..";
+  }
+  75% {
+    content: "...";
+  }
+}
+
+.logo-loader::after {
+  content: "";
+  animation: ellipsis 2s infinite;
+}
+
+.logo-loader {
+  font-size: 48px;
+  font-weight: bold;
+  color: transparent;
+  font-family: "Luckiest", sans-serif; /* Ensure this font is loaded or choose an alternative */
+  -webkit-text-stroke: 1px #ed546b;
+  background-image: repeating-linear-gradient(
+    45deg,
+    #ed546b,
+    #ed546b 2px,
+    transparent 2px,
+    transparent 10px
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+}

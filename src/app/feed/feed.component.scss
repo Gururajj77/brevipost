@@ -1,0 +1,77 @@
+@import "../../partials/variables";
+
+.feed-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+@media (max-width: 768px) {
+  .write-button {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+}
+
+.feed-title {
+  color: #333;
+  margin-top: 30px;
+  text-align: center;
+}
+
+.feed-list {
+  margin-top: 20px;
+}
+
+.feed-item {
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  padding: 20px;
+}
+
+.author-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.author-image {
+  width: 50px;
+  height: 50px;
+  background-color: #ddd; // Replace with the author's image
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.author-details {
+  h3 {
+    margin: 0;
+  }
+  .time-stamp {
+    color: #999;
+    font-size: 0.9em;
+  }
+}
+
+.feed-content {
+  color: #666;
+}
+
+//   .feed-interaction {
+//     // Add styles for interaction buttons
+//   }
+
+// Responsive styling
+@media (max-width: 768px) {
+  .feed-container {
+    padding: 10px;
+  }
+
+  .write-button {
+    padding: 8px 16px;
+  }
+
+  // Adjust other styles as needed for mobile responsiveness
+}
