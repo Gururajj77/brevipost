@@ -74,14 +74,13 @@
   }
 }
 
-/* Responsive styling */
 @media (max-width: 768px) {
   .post-dialog {
-    padding: 1rem;
+    margin: 1rem;
     width: 95%;
   }
   .post-text {
-    padding: 0.5rem;
+    // padding: 0.5rem;
     width: calc(100% - 1rem);
   }
   .btn-save,
