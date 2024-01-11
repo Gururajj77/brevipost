@@ -1,0 +1,13 @@
+<div class="post-dialog-overlay" [class.show]="isDialogOpen">
+  <div class="post-dialog">
+    <textarea
+      class="post-text"
+      placeholder="What's on your mind?"
+      rows="4"
+    ></textarea>
+    <div class="dialog-actions">
+      <button class="btn-save" (click)="savePost()">Save</button>
+      <button class="btn-cancel" (click)="closeDialog()">Cancel</button>
+    </div>
+  </div>
+</div>

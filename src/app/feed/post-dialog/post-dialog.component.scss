@@ -1,0 +1,91 @@
+@import "../.../../../../partials/variables";
+
+.post-dialog-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+
+  &.show {
+    display: flex;
+  }
+}
+
+.post-dialog {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 500px;
+}
+
+.post-text {
+  width: calc(100% - 2rem);
+  border: 1px solid #ccc;
+  border-radius: 0;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  resize: vertical;
+
+  &:focus {
+    border-color: $inactive-color;
+    outline: none;
+  }
+}
+
+.dialog-actions {
+  text-align: right;
+}
+
+.btn-save,
+.btn-cancel {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0;
+  margin-left: 0.5rem;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.btn-save {
+  background-color: $accent-color;
+  color: #fff;
+
+  &:hover {
+    background-color: darken($accent-color, 10%);
+  }
+}
+
+.btn-cancel {
+  background-color: #fff;
+  color: $accent-color;
+  border: 1px solid $accent-color;
+
+  &:hover {
+    background-color: lighten($accent-color, 40%);
+  }
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+  .post-dialog {
+    padding: 1rem;
+    width: 95%;
+  }
+  .post-text {
+    padding: 0.5rem;
+    width: calc(100% - 1rem);
+  }
+  .btn-save,
+  .btn-cancel {
+    padding: 0.5rem;
+  }
+}

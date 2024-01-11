@@ -1,8 +1,8 @@
 <section class="feed-container">
-  <CustomButton [buttonName]="'Write'" />
+  <CustomButton [buttonName]="'Write'" (click)="openWrite()" />
+  <post-dialog [isDialogOpen]="openDialogBox" (closeWrite)="openWrite()" />
   <h2 class="feed-title">News Feed</h2>
   <div class="feed-list">
-    <!-- Repeat this block for each post -->
     <div class="feed-item">
       <div class="author-info">
         <div class="author-image"></div>
