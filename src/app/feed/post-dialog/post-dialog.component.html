@@ -4,6 +4,7 @@
       class="post-text"
       placeholder="What's on your mind?"
       rows="4"
+      [(ngModel)]="postContent"
     ></textarea>
     <div class="dialog-actions">
       <button class="btn-save" (click)="savePost()">Save</button>

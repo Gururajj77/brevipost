@@ -6,17 +6,8 @@
   padding: 20px;
 }
 
-@media (max-width: 768px) {
-  .write-button {
-    padding: 10px 20px;
-    font-size: 0.9rem;
-  }
-}
-
-.feed-title {
-  color: #333;
-  margin-top: 30px;
-  text-align: center;
+.button-container {
+  padding: 0 0 1rem 0;
 }
 
 .feed-list {
@@ -40,9 +31,16 @@
 .author-image {
   width: 50px;
   height: 50px;
-  background-color: #ddd; // Replace with the author's image
+  background-color: #ddd;
   border-radius: 50%;
   margin-right: 10px;
+  img {
+    width: 50px;
+    height: 50px;
+    background-color: #ddd;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
 }
 
 .author-details {
@@ -59,10 +57,6 @@
   color: #666;
 }
 
-//   .feed-interaction {
-//     // Add styles for interaction buttons
-//   }
-
 // Responsive styling
 @media (max-width: 768px) {
   .feed-container {
@@ -70,8 +64,7 @@
   }
 
   .write-button {
-    padding: 8px 16px;
+    padding: 10px 20px;
+    font-size: 0.9rem;
   }
-
-  // Adjust other styles as needed for mobile responsiveness
 }

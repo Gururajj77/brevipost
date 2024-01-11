@@ -1,24 +1,28 @@
 <section class="feed-container">
-  <CustomButton [buttonName]="'Write'" (click)="toggleWrite()" />
+  <div class="button-container">
+    <CustomButton [buttonName]="'Write'" (click)="toggleWrite()" />
+  </div>
+
   <post-dialog [isDialogOpen]="openDialogBox" (closeWrite)="toggleWrite()" />
-  <h2 class="feed-title">News Feed</h2>
-  <div class="feed-list">
-    <div class="feed-item">
-      <div class="author-info">
-        <div class="author-image"></div>
-        <div class="author-details">
-          <h3>Arjun Reddy</h3>
-          <p class="time-stamp">10 mins ago</p>
-        </div>
+  @for (post of posts$ | async; track post.uid) {
+  <div class="feed-item">
+    <div class="author-info">
+      <div class="author-image">
+        <img
+          [src]="post.authorProfilePicture"
+          (error)="handleImageError($event)"
+          alt="Author"
+        />
       </div>
-      <p class="feed-content">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua.
-      </p>
-      <div class="feed-interaction">
-        <!-- Interaction buttons go here (like, comment, etc.) -->
+
+      <div class="author-details">
+        <h3>{{ post.authorName }}</h3>
+        <p class="time-stamp">
+          {{ post.timestamp.toDate() | date : "dd/MM/yyyy" }}
+        </p>
       </div>
     </div>
-    <!-- End of post block -->
+    <p class="feed-content">{{ post.content }}</p>
   </div>
+  }
 </section>

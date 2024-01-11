@@ -6,6 +6,12 @@ import { CustomButtonComponent } from '../shared/components/custom-button/custom
 import { FirestoreService } from '../shared/services/firestore/firestore.service';
 import { SnackbarService } from '../shared/components/snackbar/snackbar.service';
 
+type UserData = {
+  uid: string;
+  name: string | null;
+  email: string | null;
+}
+
 @Component({
   selector: 'app-sign-up',
   standalone: true,
@@ -40,7 +46,7 @@ export class SignUpComponent {
       createUserWithEmailAndPassword(this.auth, email, password)
         .then(userCredential => {
           const uid = userCredential.user.uid;
-          const userDetails = {
+          const userDetails: UserData = {
             uid,
             name,
             email,
@@ -70,7 +76,7 @@ export class SignUpComponent {
         const uid = result.user.uid;
         const email = result.user.email;
         const name = result.user.displayName;
-        const userDetails = {
+        const userDetails: UserData = {
           uid,
           name,
           email,
