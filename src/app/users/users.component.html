@@ -15,8 +15,8 @@
         <p class="user-followers">Followers: {{ user.followerCount }}</p>
       </div>
     </div>
-    @if (user.isFollowing) {
     <div class="button-container">
+      @if (user.isFollowing) {
       <button
         (click)="unfollowUser(user.uid)"
         class="custom-following-button"
@@ -24,9 +24,7 @@
       >
         Following
       </button>
-    </div>
-    } @else{
-    <div class="button-container">
+      } @else{
       <button
         class="custom-button"
         (click)="followUser(user.uid)"
@@ -34,8 +32,8 @@
       >
         Follow
       </button>
+      }
     </div>
-    }
   </div>
   }
 </section>
