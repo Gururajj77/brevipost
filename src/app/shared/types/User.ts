@@ -3,4 +3,6 @@ export type User = {
     name: string;
     uid: string;
     photoUrl: string;
+    isFollowing: string;
+    followerCount: string;
 }

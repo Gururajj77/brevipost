@@ -1,4 +1,5 @@
 @import "../../partials/variables";
+@import "../../partials/buttons";
 
 .feed-container {
   max-width: 600px;
@@ -8,6 +9,10 @@
 
 .button-container {
   padding: 0 0 1rem 0;
+}
+
+.custom-button {
+  @include write-button($accent-color);
 }
 
 .feed-list {
@@ -61,10 +66,5 @@
 @media (max-width: 768px) {
   .feed-container {
     padding: 10px;
-  }
-
-  .write-button {
-    padding: 10px 20px;
-    font-size: 0.9rem;
   }
 }

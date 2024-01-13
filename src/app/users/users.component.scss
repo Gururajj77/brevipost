@@ -1,4 +1,5 @@
 @import "../../partials/variables";
+@import "../../partials/buttons";
 
 .user-container {
   max-width: 600px;
@@ -17,7 +18,7 @@
   align-items: center;
 }
 
-.user-email {
+.user-followers {
   color: #999;
   font-size: 0.9em;
 }
@@ -53,26 +54,12 @@
   }
 }
 
-.button-container button {
-  padding: 8px 16px;
-  background-color: $accent-color;
-  border: none;
-  font-weight: bold;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  color: white;
-  cursor: pointer;
-
-  &:disabled {
-    background-color: #fff;
-    color: $accent-color;
-    box-shadow: none;
-    cursor: not-allowed;
-    opacity: 0.6;
-  }
+.custom-button {
+  @include write-button($accent-color);
 }
 
-.button-container button:hover {
-  background-color: #e55656;
+.custom-following-button {
+  @include following-button($accent-color);
 }
 
 @media (max-width: 768px) {
@@ -88,10 +75,5 @@
   .button-container {
     margin-top: 10px;
     width: 100%;
-  }
-
-  .button-container button {
-    width: 100%;
-    margin-bottom: 10px;
   }
 }

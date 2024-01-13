@@ -2,7 +2,6 @@ import { Component, inject } from '@angular/core';
 import { Auth, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithPopup, updateProfile, user } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CustomButtonComponent } from '../shared/components/custom-button/custom-button.component';
 import { FirestoreService } from '../shared/services/firestore/firestore.service';
 import { SnackbarService } from '../shared/components/snackbar/snackbar.service';
 
@@ -16,7 +15,7 @@ type UserData = {
 @Component({
   selector: 'app-sign-up',
   standalone: true,
-  imports: [ReactiveFormsModule, CustomButtonComponent],
+  imports: [ReactiveFormsModule],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss'
 })

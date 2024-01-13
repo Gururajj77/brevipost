@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { CustomButtonComponent } from '../shared/components/custom-button/custom-button.component';
 import { PostDialogComponent } from './post-dialog/post-dialog.component';
 import { Observable, of } from 'rxjs';
 import { Post } from '../shared/types/Post';
@@ -9,7 +8,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-feed',
   standalone: true,
-  imports: [CustomButtonComponent, PostDialogComponent, CommonModule],
+  imports: [PostDialogComponent, CommonModule],
   templateUrl: './feed.component.html',
   styleUrl: './feed.component.scss'
 })
@@ -25,6 +24,10 @@ export class FeedComponent {
   }
 
   toggleWrite() {
+    this.openDialogBox = !this.openDialogBox;
+  }
+
+  closeWrite() {
     this.openDialogBox = !this.openDialogBox;
     this.refreshPosts();
   }

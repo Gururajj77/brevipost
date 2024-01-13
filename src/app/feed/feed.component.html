@@ -1,9 +1,10 @@
 <section class="feed-container">
   <div class="button-container">
-    <CustomButton [buttonName]="'Write'" (click)="toggleWrite()" />
+    <!-- <CustomButton [buttonName]="'Write'" (click)="toggleWrite()" /> -->
+    <button class="custom-button" (click)="toggleWrite()">Write</button>
   </div>
 
-  <post-dialog [isDialogOpen]="openDialogBox" (closeWrite)="toggleWrite()" />
+  <post-dialog [isDialogOpen]="openDialogBox" (closeWrite)="closeWrite()" />
   @for (post of posts$ | async; track post.uid) {
   <div class="feed-item">
     <div class="author-info">
@@ -18,7 +19,7 @@
       <div class="author-details">
         <h3>{{ post.authorName }}</h3>
         <p class="time-stamp">
-          {{ post.timestamp.toDate() | date : "dd/MM/yyyy" }}
+          {{ post.timestamp.toDate() | date : "dd/MM/yyyy hh:mm:ss a" }}
         </p>
       </div>
     </div>
