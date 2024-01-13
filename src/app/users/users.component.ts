@@ -16,7 +16,7 @@ export class UsersComponent {
 
   private readonly firestore: FirestoreService = inject(FirestoreService);
   private readonly auth: Auth = inject(Auth);
-
+  uid: string | undefined = "";
   users$: Observable<User[]> = of([]);
   followingUids$: Observable<string[]> = of([]);
   usersWithFollowStatus$: Observable<any[]> = of([]);
@@ -25,6 +25,7 @@ export class UsersComponent {
   ngOnInit() {
     this.getUsersList();
     this.checkFollowStatus();
+    this.uid = this.auth.currentUser?.uid
   }
 
   checkFollowStatus() {

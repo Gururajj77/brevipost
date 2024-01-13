@@ -1,5 +1,6 @@
 <section class="user-container">
-  @for (user of usersWithFollowStatus$ | async; track $index) {
+  @for (user of usersWithFollowStatus$ | async; track $index) { @if
+  (user.uid!==uid) {
   <div class="user-item">
     <div class="author-info">
       <div class="author-image">
@@ -35,5 +36,5 @@
       }
     </div>
   </div>
-  }
+  } }
 </section>
