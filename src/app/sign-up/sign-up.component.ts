@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { Auth, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithPopup, updateProfile } from '@angular/fire/auth';
+import { Auth, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithPopup, updateProfile, user } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CustomButtonComponent } from '../shared/components/custom-button/custom-button.component';
@@ -10,6 +10,7 @@ type UserData = {
   uid: string;
   name: string | null;
   email: string | null;
+  photoUrl: string | null
 }
 
 @Component({
@@ -45,11 +46,14 @@ export class SignUpComponent {
       const { name, email, password } = this.registerForm.value;
       createUserWithEmailAndPassword(this.auth, email, password)
         .then(userCredential => {
+
           const uid = userCredential.user.uid;
+          const photoUrl = userCredential.user.photoURL
           const userDetails: UserData = {
             uid,
             name,
             email,
+            photoUrl
           };
           this.firestoreService.addUserDetails(uid, userDetails)
             .then(() => {
@@ -76,10 +80,12 @@ export class SignUpComponent {
         const uid = result.user.uid;
         const email = result.user.email;
         const name = result.user.displayName;
+        const photoUrl = result.user.photoURL
         const userDetails: UserData = {
           uid,
           name,
           email,
+          photoUrl
         };
         this.firestoreService.addUserDetails(uid, userDetails)
           .then(() => {

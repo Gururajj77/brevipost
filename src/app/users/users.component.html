@@ -1,1 +1,20 @@
-<p>users works!</p>
+<section class="user-container">
+  <div *ngFor="let user of users$ | async" class="user-item">
+    <div class="author-info">
+      <div class="author-image">
+        <img
+          [src]="user.photoUrl"
+          (error)="handleImageError($event)"
+          alt="{{ user.name }}"
+        />
+      </div>
+      <div class="author-details">
+        <h3>{{ user.name }}</h3>
+        <p class="user-email">{{ user.email }}</p>
+      </div>
+    </div>
+    <div class="button-container">
+      <button class="custom-button" type="submit">Follow</button>
+    </div>
+  </div>
+</section>

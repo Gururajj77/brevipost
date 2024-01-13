@@ -1,7 +1,8 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, addDoc, collection, collectionData, doc, orderBy, query, serverTimestamp, setDoc } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, collectionData, doc, orderBy, query, setDoc } from '@angular/fire/firestore';
 import { Post } from '../../types/Post';
 import { Observable } from 'rxjs';
+import { User } from '../../types/User';
 
 @Injectable({
   providedIn: 'root'
@@ -24,5 +25,10 @@ export class FirestoreService {
     const postsRef = collection(this.firestore, 'posts');
     const orderedPostsQuery = query(postsRef, orderBy('timestamp', 'desc'));
     return collectionData(orderedPostsQuery, { idField: 'id' }) as Observable<Post[]>;
+  }
+
+  getUsers() {
+    const usersRef = collection(this.firestore, 'users');
+    return collectionData(usersRef, { idField: 'uid' }) as Observable<User[]>;
   }
 }
