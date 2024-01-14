@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, addDoc, collection, collectionData, deleteDoc, doc, docData, increment, orderBy, query, setDoc, updateDoc } from '@angular/fire/firestore';
+import { DocumentData, Firestore, addDoc, collection, collectionData, deleteDoc, doc, docData, increment, orderBy, query, setDoc, updateDoc, where } from '@angular/fire/firestore';
 import { Post } from '../../types/Post';
 import { Observable, map } from 'rxjs';
 import { User } from '../../types/User';
@@ -18,9 +18,14 @@ export class FirestoreService {
     return setDoc(userDocRef, userDetails);
   }
 
-  addPost(postData: Post) {
+  async addPost(postData: Post, userId: string) {
     const postsCollectionRef = collection(this.firestore, 'posts');
-    return addDoc(postsCollectionRef, postData);
+    await addDoc(postsCollectionRef, postData);
+
+    const userRef = doc(this.firestore, `users/${userId}`);
+    await updateDoc(userRef, {
+      postsCount: increment(1)
+    });
   }
 
   getPosts(): Observable<Post[]> {
@@ -36,19 +41,35 @@ export class FirestoreService {
 
   async followUser(loggedInUserId: string, userToFollow: any): Promise<void> {
     await setDoc(doc(this.firestore, `users/${loggedInUserId}/following`, userToFollow.uid), userToFollow);
+
     const followerData = this.auth.getCurrentUserDetails();
+
     await setDoc(doc(this.firestore, `users/${userToFollow.uid}/followers`, loggedInUserId), followerData);
+
     const userToFollowRef = doc(this.firestore, `users/${userToFollow.uid}`);
     await updateDoc(userToFollowRef, {
       followerCount: increment(1)
     });
+
+    const loggedInUserRef = doc(this.firestore, `users/${loggedInUserId}`);
+    await updateDoc(loggedInUserRef, {
+      followingCount: increment(1)
+    });
   }
+
   async unfollowUser(loggedInUserId: string, userToUnfollowId: string): Promise<void> {
     await deleteDoc(doc(this.firestore, `users/${loggedInUserId}/following`, userToUnfollowId));
+
     await deleteDoc(doc(this.firestore, `users/${userToUnfollowId}/followers`, loggedInUserId));
+
     const userToUnfollowRef = doc(this.firestore, `users/${userToUnfollowId}`);
     await updateDoc(userToUnfollowRef, {
       followerCount: increment(-1)
+    });
+
+    const loggedInUserRef = doc(this.firestore, `users/${loggedInUserId}`);
+    await updateDoc(loggedInUserRef, {
+      followingCount: increment(-1)
     });
   }
 
@@ -59,4 +80,18 @@ export class FirestoreService {
     );
   }
 
+  getFollowingPosts(userUids: string[]): Observable<Post[]> {
+    const postsRef = collection(this.firestore, 'posts');
+
+    let postsQuery = query(postsRef, orderBy('timestamp', 'desc'));
+    if (userUids.length > 0) {
+      postsQuery = query(postsRef, where('uid', 'in', userUids), orderBy('timestamp', 'desc'));
+    }
+    return collectionData(postsQuery, { idField: 'id' }) as Observable<Post[]>;
+  }
+
+  getUserById(userId: string): Observable<DocumentData | User | undefined> {
+    const userRef = doc(this.firestore, `users/${userId}`);
+    return docData(userRef);
+  }
 }

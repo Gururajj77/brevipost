@@ -1,0 +1,19 @@
+<div class="feed-item">
+  <div class="author-info">
+    <div class="author-image">
+      <img
+        [src]="post.authorProfilePicture"
+        (error)="handleImageError($event)"
+        alt="Author"
+      />
+    </div>
+
+    <div class="author-details">
+      <h3>{{ post.authorName }}</h3>
+      <p class="time-stamp">
+        {{ post.timestamp?.toDate() | date : "dd/MM/yyyy hh:mm:ss a" }}
+      </p>
+    </div>
+  </div>
+  <p class="feed-content">{{ post.content }}</p>
+</div>

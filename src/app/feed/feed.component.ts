@@ -4,11 +4,12 @@ import { Observable, of } from 'rxjs';
 import { Post } from '../shared/types/Post';
 import { FirestoreService } from '../shared/services/firestore/firestore.service';
 import { CommonModule } from '@angular/common';
+import { PostsComponent } from '../shared/components/posts/posts.component';
 
 @Component({
   selector: 'app-feed',
   standalone: true,
-  imports: [PostDialogComponent, CommonModule],
+  imports: [PostDialogComponent, CommonModule, PostsComponent],
   templateUrl: './feed.component.html',
   styleUrl: './feed.component.scss'
 })

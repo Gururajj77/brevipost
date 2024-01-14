@@ -1,1 +1,15 @@
-<p>profile works!</p>
+<section class="profile-container">
+  @if (userDetails) {
+  <div class="user-profile">
+    <div class="author-image"></div>
+    <div class="user-details">
+      <p class="user-name">{{ userDetails.name }}</p>
+      <div class="user-stats">
+        <p>Posts: {{ userDetails.postsCount }}</p>
+        <p>Followers: {{ userDetails.followerCount }}</p>
+        <p>Following: {{ userDetails.followingCount }}</p>
+      </div>
+    </div>
+  </div>
+  }
+</section>

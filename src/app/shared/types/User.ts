@@ -5,4 +5,6 @@ export type User = {
     photoUrl: string;
     isFollowing: string;
     followerCount: string;
+    followingCount: string;
+    postsCount: string;
 }
