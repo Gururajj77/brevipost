@@ -40,64 +40,56 @@ export class SignUpComponent {
   }
 
 
-  register() {
+  async register() {
     if (this.registerForm.valid) {
-      const { name, email, password } = this.registerForm.value;
-      createUserWithEmailAndPassword(this.auth, email, password)
-        .then(userCredential => {
+      try {
+        const { name, email, password } = this.registerForm.value;
+        const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
 
-          const uid = userCredential.user.uid;
-          const photoUrl = userCredential.user.photoURL
-          const userDetails: UserData = {
-            uid,
-            name,
-            email,
-            photoUrl
-          };
-          this.firestoreService.addUserDetails(uid, userDetails)
-            .then(() => {
-              this.snackbarService.show('User details added to Firestore');
-            })
-            .catch((error) => {
-              this.snackbarService.show('Error adding user details to Firestore');
-            });
-          return updateProfile(userCredential.user, { displayName: name });
-        })
-        .then(() => {
-          this.router.navigateByUrl('app/feed');
-        })
-        .catch(error => {
-          console.error('Registration error:', error);
-        });
-    }
-  }
+        const uid = userCredential.user.uid;
+        const photoUrl = userCredential.user.photoURL;
 
-  signInWithGoogle() {
-    const provider = new GoogleAuthProvider();
-    signInWithPopup(this.auth, provider)
-      .then((result) => {
-        const uid = result.user.uid;
-        const email = result.user.email;
-        const name = result.user.displayName;
-        const photoUrl = result.user.photoURL
         const userDetails: UserData = {
           uid,
           name,
           email,
           photoUrl
         };
-        this.firestoreService.addUserDetails(uid, userDetails)
-          .then(() => {
-            this.snackbarService.show('User details added to Firestore');
-          })
-          .catch((error) => {
-            this.snackbarService.show('Error adding user details to Firestore');
-          });
-        this.router.navigateByUrl('app/feed')
-      }).catch((error) => {
-        this.snackbarService.show('Error in Registering new User');
-      });
+
+        await this.firestoreService.addUserDetails(uid, userDetails);
+        this.snackbarService.show('User details added to Firestore');
+
+        await updateProfile(userCredential.user, { displayName: name });
+
+        this.router.navigateByUrl('app/feed');
+      } catch (error) {
+        this.snackbarService.show('Error during registration.');
+      }
+    }
   }
+
+
+  async signInWithGoogle() {
+    try {
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(this.auth, provider);
+
+      const uid = result.user.uid;
+      const email = result.user.email;
+      const name = result.user.displayName;
+      const photoUrl = result.user.photoURL;
+
+      const userDetails: UserData = { uid, name, email, photoUrl };
+
+      await this.firestoreService.addUserDetails(uid, userDetails);
+      this.snackbarService.show('User details added to Firestore');
+
+      this.router.navigateByUrl('app/feed');
+    } catch (error) {
+      this.snackbarService.show('Error in Registering new User');
+    }
+  }
+
 
   toLoginPage() {
     this.router.navigateByUrl('sign-in');

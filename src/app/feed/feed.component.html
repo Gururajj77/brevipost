@@ -1,6 +1,5 @@
 <section class="feed-container">
   <div class="button-container">
-    <!-- <CustomButton [buttonName]="'Write'" (click)="toggleWrite()" /> -->
     <button class="custom-button" (click)="toggleWrite()">Write</button>
   </div>
 
@@ -19,7 +18,7 @@
       <div class="author-details">
         <h3>{{ post.authorName }}</h3>
         <p class="time-stamp">
-          {{ post.timestamp.toDate() | date : "dd/MM/yyyy hh:mm:ss a" }}
+          {{ post.timestamp?.toDate() | date : "dd/MM/yyyy hh:mm:ss a" }}
         </p>
       </div>
     </div>

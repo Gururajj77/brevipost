@@ -40,20 +40,21 @@ export class SignInComponent {
   }
 
 
-  signIn() {
+  async signIn() {
     if (this.loginForm.valid) {
-      const { email, password } = this.loginForm.value;
-      signInWithEmailAndPassword(this.auth, email, password)
-        .then((result) => {
-          this.snackbarService.show('Signed In Successfully', 5000);
-          this.router.navigateByUrl('app/feed');
-        })
-        .catch((error) => {
-          this.ERROR_CODE = error.code
-          console.log(this.ERROR_CODE)
-        });
+      try {
+        const { email, password } = this.loginForm.value;
+        await signInWithEmailAndPassword(this.auth, email, password);
+        this.snackbarService.show('Signed In Successfully', 5000);
+        this.router.navigateByUrl('app/feed');
+      } catch (error: any) {
+        this.ERROR_CODE = error.code;
+        console.log(this.ERROR_CODE);
+        this.snackbarService.show('Error Signing In');
+      }
     }
   }
+
 
   persistLoggedInUser() {
     this.auth.onAuthStateChanged((user) => {
@@ -74,16 +75,15 @@ export class SignInComponent {
     this.router.navigateByUrl('/register-user');
   }
 
-  resetPassword() {
+  async resetPassword() {
     if (this.loginForm && this.loginForm.get('email') && this.loginForm.get('password')) {
-      const email = this.loginForm.get('email')!.value;
-      sendPasswordResetEmail(this.auth, email)
-        .then(() => {
-          this.snackbarService.show('Password reset email sent', 5000);
-        })
-        .catch((error) => {
-          this.snackbarService.show('Error sending password reset email', 2500);
-        });
+      try {
+        const email = this.loginForm.get('email')!.value;
+        await sendPasswordResetEmail(this.auth, email);
+        this.snackbarService.show('Password reset email sent', 5000);
+      } catch (error) {
+        this.snackbarService.show('Error sending password reset email', 2500);
+      }
     }
   }
 }

@@ -1,6 +1,6 @@
 <section class="user-container">
-  @for (user of usersWithFollowStatus$ | async; track $index) { @if
-  (user.uid!==uid) {
+  @for (user of usersWithFollowStatus$ | async; track $index) {
+  @if(user.uid!==uid) {
   <div class="user-item">
     <div class="author-info">
       <div class="author-image">
@@ -26,11 +26,7 @@
         Following
       </button>
       } @else{
-      <button
-        class="custom-button"
-        (click)="followUser(user.uid)"
-        type="submit"
-      >
+      <button class="custom-button" (click)="followUser(user)" type="submit">
         Follow
       </button>
       }

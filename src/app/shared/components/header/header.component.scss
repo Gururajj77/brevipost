@@ -1,4 +1,3 @@
-// header.component.scss
 @import "../../../../partials/variables";
 
 .header {
@@ -35,12 +34,11 @@
   font-size: 48px;
   font-weight: bold;
   color: transparent;
-  font-family: "Luckiest";
-  -webkit-text-stroke: 1px #ed546b;
+  -webkit-text-stroke: 1px $accent-color;
   background-image: repeating-linear-gradient(
     45deg,
-    #ed546b,
-    #ed546b 2px,
+    $accent-color,
+    $accent-color 2px,
     transparent 2px,
     transparent 10px
   );

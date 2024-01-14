@@ -3,6 +3,7 @@ import { Firestore, addDoc, collection, collectionData, deleteDoc, doc, docData,
 import { Post } from '../../types/Post';
 import { Observable, map } from 'rxjs';
 import { User } from '../../types/User';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ import { User } from '../../types/User';
 export class FirestoreService {
 
   private readonly firestore: Firestore = inject(Firestore);
+  private readonly auth: AuthService = inject(AuthService);
 
   addUserDetails(userId: string, userDetails: any) {
     const userDocRef = doc(this.firestore, `users/${userId}`);
@@ -32,17 +34,15 @@ export class FirestoreService {
     return collectionData(usersRef, { idField: 'uid' }) as Observable<User[]>;
   }
 
-  async followUser(loggedInUserId: string, userToFollowId: string): Promise<void> {
-    const followingData = { uid: userToFollowId };
-    await setDoc(doc(this.firestore, `users/${loggedInUserId}/following`, userToFollowId), followingData);
-    const followerData = { uid: loggedInUserId };
-    await setDoc(doc(this.firestore, `users/${userToFollowId}/followers`, loggedInUserId), followerData);
-    const userToFollowRef = doc(this.firestore, `users/${userToFollowId}`);
+  async followUser(loggedInUserId: string, userToFollow: any): Promise<void> {
+    await setDoc(doc(this.firestore, `users/${loggedInUserId}/following`, userToFollow.uid), userToFollow);
+    const followerData = this.auth.getCurrentUserDetails();
+    await setDoc(doc(this.firestore, `users/${userToFollow.uid}/followers`, loggedInUserId), followerData);
+    const userToFollowRef = doc(this.firestore, `users/${userToFollow.uid}`);
     await updateDoc(userToFollowRef, {
       followerCount: increment(1)
     });
   }
-
   async unfollowUser(loggedInUserId: string, userToUnfollowId: string): Promise<void> {
     await deleteDoc(doc(this.firestore, `users/${loggedInUserId}/following`, userToUnfollowId));
     await deleteDoc(doc(this.firestore, `users/${userToUnfollowId}/followers`, loggedInUserId));
@@ -54,8 +54,9 @@ export class FirestoreService {
 
   getFollowingUids(loggedInUserId: string): Observable<string[]> {
     const followingRef = collection(this.firestore, `users/${loggedInUserId}/following`);
-    return collectionData(followingRef, { idField: 'uid' }).pipe(
-      map(followingDocs => followingDocs.map(doc => doc.uid))
+    return collectionData(followingRef).pipe(
+      map(followingDocs => followingDocs.map(doc => doc['uid']))
     );
   }
+
 }

@@ -1,3 +1,5 @@
+@import "../../../../partials/variables";
+
 .full-page-loader {
   position: fixed;
   top: 0;
@@ -36,12 +38,11 @@
   font-size: 48px;
   font-weight: bold;
   color: transparent;
-  font-family: "Luckiest", sans-serif; /* Ensure this font is loaded or choose an alternative */
-  -webkit-text-stroke: 1px #ed546b;
+  -webkit-text-stroke: 1px $accent-color;
   background-image: repeating-linear-gradient(
     45deg,
-    #ed546b,
-    #ed546b 2px,
+    $accent-color,
+    $accent-color 2px,
     transparent 2px,
     transparent 10px
   );

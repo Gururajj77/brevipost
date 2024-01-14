@@ -52,9 +52,9 @@ export class UsersComponent {
     (event.target as HTMLImageElement).style.display = 'none';
   }
 
-  followUser(followingUserId: string) {
+  followUser(followingUser: string) {
     if (this.auth.currentUser) {
-      this.firestore.followUser(this.auth.currentUser.uid, followingUserId);
+      this.firestore.followUser(this.auth.currentUser.uid, followingUser);
     }
   }
 
