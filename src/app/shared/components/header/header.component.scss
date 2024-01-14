@@ -48,6 +48,16 @@
     cursor: pointer;
   }
 }
+
+.logout {
+  width: 20px;
+  height: 20px;
+  color: $inactive-color;
+  cursor: pointer;
+  &:hover {
+    filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.3));
+  }
+}
 @media (max-width: 768px) {
   .header {
     justify-content: space-between;

@@ -45,7 +45,7 @@ export class SignInComponent {
       try {
         const { email, password } = this.loginForm.value;
         await signInWithEmailAndPassword(this.auth, email, password);
-        this.snackbarService.show('Signed In Successfully', 5000);
+        this.snackbarService.show('Signed In Successfully', 2500);
         this.router.navigateByUrl('app/feed');
       } catch (error: any) {
         this.ERROR_CODE = error.code;
