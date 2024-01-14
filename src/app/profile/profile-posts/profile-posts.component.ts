@@ -29,7 +29,7 @@ export class ProfilePostsComponent {
             this.posts = posts;
           },
           error: (error) => {
-            this.snack.show(error);
+            this.snack.show("No posts from your following users");
           }
         });
     }

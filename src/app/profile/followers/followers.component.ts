@@ -27,11 +27,12 @@ export class FollowersComponent {
 
   checkFollowStatus() {
     if (this.auth.currentUser) {
-      this.usersWithFollowStatus$ = this.userRelations.getFollowersList(this.auth.currentUser.uid)
+      this.usersWithFollowStatus$ = this.userRelations.getFollowers(this.auth.currentUser.uid)
     }
   }
 
   followUser(followingUser: User) {
+    console.log(followingUser);
     if (this.auth.currentUser) {
       this.userRelations.followUser(this.auth.currentUser.uid, followingUser);
     }

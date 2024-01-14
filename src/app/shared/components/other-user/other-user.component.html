@@ -11,8 +11,9 @@
     <div class="author-details">
       <h3>{{ user.name }}</h3>
       <p class="user-followers">{{ user.email }}</p>
-
+      @if (user.followerCount) {
       <p class="user-followers">Followers: {{ user.followerCount }}</p>
+      }
     </div>
   </div>
   <div class="button-container">

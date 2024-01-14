@@ -3,7 +3,7 @@ import { Auth, GoogleAuthProvider, User, signInWithPopup } from '@angular/fire/a
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { SnackbarService } from '../../components/snackbar/snackbar.service';
-import { Firestore, doc, getDoc } from '@angular/fire/firestore';
+import { Firestore } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -31,16 +31,14 @@ export class AuthService {
   }
 
 
-  async getCurrentUserDetails(): Promise<User | null> {
+  getCurrentUserDetails() {
     if (this.auth.currentUser) {
-      const userId = this.auth.currentUser.uid;
-      const userRef = doc(this.firestore, `users/${userId}`);
-      const docSnapshot = await getDoc(userRef);
-
-      if (docSnapshot.exists()) {
-        return docSnapshot.data() as User;
-      } else {
-        return null;
+      const user = this.auth.currentUser;
+      return {
+        uid: user.uid,
+        email: user.email,
+        photoUrl: user.photoURL,
+        name: user.displayName,
       }
     }
     return null;

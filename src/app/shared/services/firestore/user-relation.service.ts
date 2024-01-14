@@ -20,8 +20,7 @@ export class UserRelationService {
   async followUser(loggedInUserId: string, userToFollow: any): Promise<void> {
     await setDoc(doc(this.firestore, `users/${loggedInUserId}/following`, userToFollow.uid), userToFollow);
 
-    const followerData = await this.auth.getCurrentUserDetails();
-    console.log(followerData);
+    const followerData = this.auth.getCurrentUserDetails();
     await setDoc(doc(this.firestore, `users/${userToFollow.uid}/followers`, loggedInUserId), followerData);
 
     const userToFollowRef = doc(this.firestore, `users/${userToFollow.uid}`);
@@ -58,6 +57,13 @@ export class UserRelationService {
     );
   }
 
+  getFollowerUids(loggedInUserId: string): Observable<string[]> {
+    const followingRef = collection(this.firestore, `users/${loggedInUserId}/following`);
+    return collectionData(followingRef).pipe(
+      map(followingDocs => followingDocs.map(doc => doc['uid']))
+    );
+  }
+
 
 
   getUserById(userId: string): Observable<DocumentData | User | undefined> {
@@ -76,7 +82,6 @@ export class UserRelationService {
   }
 
   getUsersWithFollowingStatus(uid: string) {
-
     const followingUids$ = this.getFollowingUids(uid);
     const users$ = this.firestoreService.getUsers();
 
@@ -93,6 +98,20 @@ export class UserRelationService {
   getFollowersList(loggedInUserId: string) {
     const followingRef = collection(this.firestore, `users/${loggedInUserId}/followers`);
     return collectionData(followingRef, { idField: 'uid' }) as Observable<User[]>;
+  }
+
+  getFollowers(uid: string) {
+    const followerUids$ = this.getFollowerUids(uid);
+    const users$ = this.getFollowersList(uid);
+
+    return combineLatest([users$, followerUids$]).pipe(
+      map(([users, followerUids]) =>
+        users.map(user => ({
+          ...user,
+          isFollowing: followerUids.includes(user.uid)
+        }))
+      )
+    );
   }
 
 }
