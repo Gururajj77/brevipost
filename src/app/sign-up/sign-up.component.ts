@@ -28,7 +28,7 @@ export class SignUpComponent {
   private readonly formBuilder: FormBuilder = inject(FormBuilder);
   private readonly snackbarService: SnackbarService = inject(SnackbarService);
 
-  private firestoreService: FirestoreService = inject(FirestoreService);
+  private firestore: FirestoreService = inject(FirestoreService);
   constructor() {
     this.registerForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -56,7 +56,7 @@ export class SignUpComponent {
           photoUrl
         };
 
-        await this.firestoreService.addUserDetails(uid, userDetails);
+        await this.firestore.addUserDetails(uid, userDetails);
         this.snackbarService.show('User details added to Firestore');
 
         await updateProfile(userCredential.user, { displayName: name });
@@ -81,7 +81,7 @@ export class SignUpComponent {
 
       const userDetails: UserData = { uid, name, email, photoUrl };
 
-      await this.firestoreService.addUserDetails(uid, userDetails);
+      await this.firestore.addUserDetails(uid, userDetails);
       this.snackbarService.show('User details added to Firestore');
 
       this.router.navigateByUrl('app/feed');

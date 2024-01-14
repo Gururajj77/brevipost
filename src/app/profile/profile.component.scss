@@ -6,7 +6,7 @@
 
 .user-profile {
   display: grid;
-  grid-template-columns: 1fr 3fr;
+  grid-template-columns: 1fr 2fr;
   gap: 10px;
   padding: 10px 0;
 }
@@ -29,7 +29,10 @@
 
 .user-details {
   grid-column: 2;
-
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
   .user-name {
     margin: 0;
     padding: 0;
@@ -40,5 +43,34 @@
   .user-stats {
     display: flex;
     gap: 10px;
+  }
+}
+.navigation-header {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  padding: 0;
+  justify-content: space-around;
+  border-top: 0.5px solid rgb(190, 190, 190);
+  .active {
+    border-top: 2px solid rgb(101, 101, 101);
+  }
+  li {
+    padding: 10px 0;
+  }
+}
+@media (max-width: 768px) {
+  .feed-container {
+    padding: 10px;
+  }
+  .navigation-header {
+    width: 100%;
+  }
+  .user-details {
+    .user-name {
+      font-size: 28px;
+    }
   }
 }

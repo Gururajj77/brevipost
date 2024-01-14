@@ -1,14 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
 import { FirestoreService } from '../shared/services/firestore/firestore.service';
-import { Observable, of } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { User } from '../shared/types/User';
+import { RouterModule, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
