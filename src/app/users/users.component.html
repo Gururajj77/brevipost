@@ -1,36 +1,10 @@
 <section class="user-container">
   @for (user of usersWithFollowStatus$ | async; track $index) {
-  @if(user.uid!==uid) {
-  <div class="user-item">
-    <div class="author-info">
-      <div class="author-image">
-        <img
-          [src]="user.photoUrl"
-          (error)="handleImageError($event)"
-          alt="{{ user.name }}"
-        />
-      </div>
-      <div class="author-details">
-        <h3>{{ user.name }}</h3>
-        <p class="user-followers">{{ user.email }}</p>
-        <p class="user-followers">Followers: {{ user.followerCount }}</p>
-      </div>
-    </div>
-    <div class="button-container">
-      @if (user.isFollowing) {
-      <button
-        (click)="unfollowUser(user.uid)"
-        class="custom-following-button"
-        type="submit"
-      >
-        Following
-      </button>
-      } @else{
-      <button class="custom-button" (click)="followUser(user)" type="submit">
-        Follow
-      </button>
-      }
-    </div>
-  </div>
-  } }
+  <OtherUser
+    [user]="user"
+    [currentUserId]="this?.uid"
+    (follow)="followUser($event)"
+    (unfollow)="unfollowUser($event)"
+  />
+  }
 </section>

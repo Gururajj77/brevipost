@@ -8,7 +8,7 @@ import { UsersComponent } from './users/users.component';
 import { ProfileComponent } from './profile/profile.component';
 import { FollowersComponent } from './profile/followers/followers.component';
 import { FollowingComponent } from './profile/following/following.component';
-import { PostsComponent } from './profile/posts/posts.component';
+import { ProfilePostsComponent } from './profile/profile-posts/profile-posts.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/sign-in', pathMatch: 'full' },
@@ -23,7 +23,7 @@ export const routes: Routes = [
             {
                 path: 'profile', component: ProfileComponent, canActivate: [authGuard], children: [
                     { path: '', redirectTo: 'posts', pathMatch: 'full' },
-                    { path: 'posts', component: PostsComponent },
+                    { path: 'posts', component: ProfilePostsComponent },
                     { path: 'followers', component: FollowersComponent },
                     { path: 'following', component: FollowingComponent }
                 ]

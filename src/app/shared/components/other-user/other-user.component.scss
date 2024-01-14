@@ -1,0 +1,61 @@
+@import "../../../../partials/buttons";
+@import "../../../../partials/variables";
+
+.user-item {
+  background: #fff;
+  border-bottom: 0.5px solid rgb(190, 190, 190);
+  margin-bottom: 20px;
+  padding: 20px 20px 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-followers {
+  color: #999;
+  font-size: 0.9em;
+}
+
+.user-followers {
+  color: #999;
+  font-size: 0.9em;
+}
+
+.author-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.author-image {
+  width: 50px;
+  height: 50px;
+  background-color: #ddd;
+  border-radius: 50%;
+  margin-right: 10px;
+  img {
+    width: 50px;
+    height: 50px;
+    background-color: #ddd;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+}
+
+.author-details {
+  h3 {
+    margin: 0;
+  }
+  .time-stamp {
+    color: #999;
+    font-size: 0.9em;
+  }
+}
+
+.custom-button {
+  @include write-button($accent-color);
+}
+
+.custom-following-button {
+  @include following-button($accent-color);
+}

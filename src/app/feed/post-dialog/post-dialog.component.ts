@@ -43,6 +43,7 @@ export class PostDialogComponent {
       timestamp: serverTimestamp()
     }
     this.firestore.addPost(post, user!.uid);
+    this.postContent = "";
     this.closeDialog();
   }
 

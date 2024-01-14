@@ -1,7 +1,9 @@
 <section class="profile-container">
   @if (userDetails) {
   <div class="user-profile">
-    <div class="author-image"></div>
+    <div class="author-image">
+      <img [src]="userDetails.photoUrl" />
+    </div>
     <div class="user-details">
       <p class="user-name">{{ userDetails.name }}</p>
       <div class="user-stats">
