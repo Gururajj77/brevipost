@@ -49,6 +49,26 @@
   }
 }
 
+.logo-small {
+  display: none;
+  font-size: 24px;
+  font-weight: bold;
+  color: transparent;
+  -webkit-text-stroke: 1px $accent-color;
+  background-image: repeating-linear-gradient(
+    45deg,
+    $accent-color,
+    $accent-color 2px,
+    transparent 2px,
+    transparent 10px
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
 .logout {
   width: 20px;
   height: 20px;
@@ -75,5 +95,9 @@
 
   .logo {
     display: none;
+  }
+
+  .logo-small {
+    display: block;
   }
 }
