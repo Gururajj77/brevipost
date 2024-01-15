@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { DocumentData, Firestore, collection, collectionData, deleteDoc, doc, docData, increment, query, setDoc, updateDoc, where } from '@angular/fire/firestore';
 import { AuthService } from '../auth/auth.service';
 import { User } from '@angular/fire/auth';
-import { Observable, combineLatest, map, switchMap } from 'rxjs';
+import { Observable, combineLatest, from, map, switchMap } from 'rxjs';
 import { Post } from '../../types/Post';
 import { FirestoreService } from './firestore.service';
 
@@ -17,13 +17,14 @@ export class UserRelationService {
 
 
 
-  async followUser(loggedInUserId: string, userToFollow: any): Promise<void> {
-    await setDoc(doc(this.firestore, `users/${loggedInUserId}/following`, userToFollow.uid), userToFollow);
+  async followUser(loggedInUserId: string, userToFollowId: string): Promise<void> {
+    const followingRef = doc(this.firestore, `users/${loggedInUserId}/following`, userToFollowId);
+    await setDoc(followingRef, { uid: userToFollowId });
 
-    const followerData = this.auth.getCurrentUserDetails();
-    await setDoc(doc(this.firestore, `users/${userToFollow.uid}/followers`, loggedInUserId), followerData);
+    const followersRef = doc(this.firestore, `users/${userToFollowId}/followers`, loggedInUserId);
+    await setDoc(followersRef, { uid: loggedInUserId });
 
-    const userToFollowRef = doc(this.firestore, `users/${userToFollow.uid}`);
+    const userToFollowRef = doc(this.firestore, `users/${userToFollowId}`);
     await updateDoc(userToFollowRef, {
       followerCount: increment(1)
     });
@@ -95,9 +96,14 @@ export class UserRelationService {
     );
   }
 
-  getFollowersList(loggedInUserId: string) {
-    const followingRef = collection(this.firestore, `users/${loggedInUserId}/followers`);
-    return collectionData(followingRef, { idField: 'uid' }) as Observable<User[]>;
+  getFollowersList(loggedInUserId: string): Observable<User[]> {
+    const followersRef = collection(this.firestore, `users/${loggedInUserId}/followers`);
+    return collectionData(followersRef, { idField: 'uid' }).pipe(
+      switchMap(followers => {
+        const userDocs = followers.map(follower => doc(this.firestore, `users/${follower.uid}`));
+        return userDocs.length ? combineLatest(userDocs.map(userDoc => docData(userDoc))) : from([[]]);
+      })
+    ) as Observable<User[]>;
   }
 
   getFollowers(uid: string) {
@@ -109,6 +115,30 @@ export class UserRelationService {
         users.map(user => ({
           ...user,
           isFollowing: followerUids.includes(user.uid)
+        }))
+      )
+    );
+  }
+
+  getFollowingList(loggedInUserId: string): Observable<User[]> {
+    const followingRef = collection(this.firestore, `users/${loggedInUserId}/following`);
+    return collectionData(followingRef, { idField: 'uid' }).pipe(
+      switchMap(following => {
+        const userDocs = following.map(followedUser => doc(this.firestore, `users/${followedUser.uid}`));
+        return userDocs.length ? combineLatest(userDocs.map(userDoc => docData(userDoc))) : from([[]]);
+      })
+    ) as Observable<User[]>;
+  }
+
+  getFollowing(uid: string) {
+    const followingUids$ = this.getFollowingUids(uid);
+    const users$ = this.getFollowingList(uid);
+
+    return combineLatest([users$, followingUids$]).pipe(
+      map(([users, followingUids]) =>
+        users.map(user => ({
+          ...user,
+          isFollowing: followingUids.includes(user.uid)
         }))
       )
     );

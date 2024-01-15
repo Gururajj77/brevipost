@@ -12,14 +12,14 @@ export class OtherUserComponent {
 
   @Input() currentUserId?: string = "";
   @Input() user!: any;
-  @Output() follow = new EventEmitter<User>();
+  @Output() follow = new EventEmitter<string>();
   @Output() unfollow = new EventEmitter<string>();
 
   handleImageError(event: any) {
     (event.target as HTMLImageElement).style.display = 'none';
   }
   followUser(): void {
-    this.follow.emit(this.user);
+    this.follow.emit(this.user.uid);
   }
 
   unfollowUser(): void {

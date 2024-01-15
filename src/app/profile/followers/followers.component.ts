@@ -31,10 +31,9 @@ export class FollowersComponent {
     }
   }
 
-  followUser(followingUser: User) {
-    console.log(followingUser);
+  followUser(followingUserId: string) {
     if (this.auth.currentUser) {
-      this.userRelations.followUser(this.auth.currentUser.uid, followingUser);
+      this.userRelations.followUser(this.auth.currentUser.uid, followingUserId);
     }
   }
 

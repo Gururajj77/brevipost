@@ -1,1 +1,8 @@
-<p>following works!</p>
+@for (user of usersWithFollowStatus$ | async; track $index) {
+<OtherUser
+  [user]="user"
+  [currentUserId]="this?.uid"
+  (follow)="followUser($event)"
+  (unfollow)="unfollowUser($event)"
+/>
+}

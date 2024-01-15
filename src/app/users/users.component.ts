@@ -47,9 +47,9 @@ export class UsersComponent {
     (event.target as HTMLImageElement).style.display = 'none';
   }
 
-  followUser(followingUser: User) {
+  followUser(followingUserId: string) {
     if (this.auth.currentUser) {
-      this.userRelations.followUser(this.auth.currentUser.uid, followingUser);
+      this.userRelations.followUser(this.auth.currentUser.uid, followingUserId);
     }
   }
 
